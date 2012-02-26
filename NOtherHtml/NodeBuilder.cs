@@ -56,5 +56,10 @@ namespace NOtherHtml
         {
             _node.AppendChild(_doc.CreateTextNode(content));
         }
+
+        public void AddCDataContent(string content)
+        {
+            _node.AppendChild(_doc.CreateCDataSection(content));
+        }
     }
 }

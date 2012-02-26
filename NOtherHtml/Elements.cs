@@ -35,6 +35,7 @@ namespace NOtherHtml
 
     public interface IScript : IHaveId, IHaveInnerContent
     {
+        void CData(string content);
         void Charset(string charset);
         void Type(string type);
         void Src(string uri);
@@ -43,6 +44,7 @@ namespace NOtherHtml
 
     public interface IStyle : IHaveId, IHaveI18n, IHaveInnerContent
     {
+        void CData(string content);
         void Type(string type);
         void Media(string media);
         void Title(string title);

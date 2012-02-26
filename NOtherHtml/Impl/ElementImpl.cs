@@ -29,6 +29,11 @@ namespace NOtherHtml.Impl
             _nb.SetAttribute("content", content);
         }
 
+        public void CData(string content)
+        {
+            _nb.AddCDataContent(content);
+        }        
+
         public void Br()
         {
             _nb.AddEmptyNode("br");

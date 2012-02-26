@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NOtherHtml;
-using NOtherHtml.Impl;
-using ValueType = NOtherHtml.ValueType;
 
 namespace TestRunner
 {
@@ -11,49 +9,54 @@ namespace TestRunner
     {
         static void Main(string[] args)
         {
-            var html = Html.For<IHtml>(x =>
+            var html = Html.For(x =>
             {
-                x.Head(h =>
+                x.Lang("en");
+                x.Head(head =>
                 {
-                    h.Title(t => t.Content("test"));
-                    h.Base(b => b.Href("href"));
-                    h.Meta(m =>
+                    head.Meta(meta =>
                     {
-                        m.HttpEquiv("content-type");
-                        m.Content("text/html; charset=iso-8859-2");
+                        meta.HttpEquiv("Content-Type");
+                        meta.Content("text/html; charset=UTF-8");
                     });
-                    h.Meta(m =>
+                    head.Title(t => t.Content("XHTML 1.0 Strict Example"));
+                    head.Script(script =>
                     {
-                        m.Name("keywords");
-                        m.Content("some keywords");
-                        m.Dir(Direction.Rtl);
-                    });
-                    h.Object(o =>
-                    {
-                        o.OnKeyUp("onkeyup");
-                        o.Param(p => p.Value("abc"));
-                        o.Param(p => p.ValueType(ValueType.Ref));
-                        o.Ins(n =>
-                        {
-                            n.DateTime(DateTime.Now);
-                            n.Br();
-                        });
-                    });
-                    h.Link(l =>
-                    {
-                        l.Rel("stylesheet");
-                        l.Href("asdf");
+                        script.Type("text/javascript");
+                        script.CData(@"function loadpdf() {
+                            document.getElementById(""pdf-object"").src=""http://www.w3.org/TR/xhtml1/xhtml1.pdf"";
+                        }");
                     });
                 });
-                x.Id("theid");
-                x.Body(b =>
+                x.Body(body =>
                 {
-                    b.OnLoad("onload");
-                    b.P(p =>
+                    body.OnLoad("loadpdf()");
+                    body.P(p =>
                     {
-                        p.Content("test");
-                        p.A(a => a.Href("test"));
-                        p.Content("test2");
+                        p.Content("This is an example of an");
+                        p.Abbr(abbr =>
+                        {
+                            abbr.Title("Extensible HyperText Markup Language");
+                            abbr.Content("XHTML");
+                        });
+                        p.Content("1.0 Strict document.");
+                        p.Br();
+                        p.Img(img =>
+                        {
+                            img.Id("validation-icon");
+                            img.Src("http://www.w3.org/Icons/valid-xhtml10");
+                            img.Alt("Valid XHTML 1.0 Strict");
+                        });
+                        p.Br();
+                        p.Object(obj =>
+                        {
+                            obj.Id("pdf-object");
+                            obj.Name("pdf-object");
+                            obj.Type("application/pdf");
+                            obj.Data("http://www.w3.org/TR/xhtml1/xhtml1.pdf");
+                            obj.Width("100%");
+                            obj.Height("500");
+                        });
                     });
                 });
             });
